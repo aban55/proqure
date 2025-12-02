@@ -9,7 +9,7 @@ export default function NewRFQPage() {
         <input className="w-full border rounded p-2" placeholder="Enter RFQ title" />
 
         <label className="block mt-3 mb-2 text-sm">Description</label>
-        <textarea className="w-full border rounded p-2" rows="4" placeholder="Details"></textarea>
+        <textarea className="w-full border rounded p-2" rows={4} placeholder="Details"></textarea>
 
         <div className="mt-4">
           <button className="px-4 py-2 bg-slate-800 text-white rounded">Save draft</button>
