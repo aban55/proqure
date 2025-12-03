@@ -4,8 +4,8 @@
 
 /* Preserve your theme variables and color scheme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F8F0E3;
+  --foreground: #000080;
 }
 
 @theme inline {
