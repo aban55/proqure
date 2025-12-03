@@ -19,6 +19,7 @@ export default function QuoteForm({ rfqId }: { rfqId: string }) {
     setSaving(false);
     if (j.error) return alert("Error: " + j.error);
     alert("Quote submitted");
+    // optionally redirect to seller quotes page
   }
 
   return (

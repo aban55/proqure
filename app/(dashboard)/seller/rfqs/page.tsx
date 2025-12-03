@@ -8,20 +8,28 @@ export default async function SellerRFQFeedPage() {
     const txt = await res.text().catch(() => "<no body>");
     return <div className="p-8 text-red-600">Failed to load feed: {txt}</div>;
   }
-  const json = await res.json();
-  const { tier1 = [], tier2 = [], tier3 = [] } = json.tiers ?? {};
 
-  function renderRow(item: any) {
+  const json = await res.json();
+  const tier1 = json.tiers?.tier1 ?? [];
+  const tier2 = json.tiers?.tier2 ?? [];
+  const tier3 = json.tiers?.tier3 ?? [];
+
+  function row(item: any) {
     const rfq = item.rfq;
     return (
-      <div key={rfq.id} className="p-3 border-b flex justify-between">
+      <div key={rfq.id} className="p-4 border-b flex justify-between items-center">
         <div>
           <div className="font-medium">{rfq.title}</div>
-          <div className="text-sm text-gray-600">{rfq.category} • {rfq.size} • {rfq.pipe_type}</div>
+          <div className="text-sm text-gray-600">
+            {rfq.size} • {rfq.pipe_type} • {rfq.brand_preference || "Any brand"}
+          </div>
+          <div className="text-xs text-gray-500">{item.matched?.join(", ")}</div>
         </div>
         <div className="flex items-center gap-3">
-          <Link href={`/seller/rfqs/${rfq.id}`} className="text-blue-600">View →</Link>
-          <div className="text-sm text-gray-500">{item.score} pts</div>
+          <div className="text-sm text-gray-700">{item.score} pts</div>
+          <Link href={`/seller/rfqs/${rfq.id}`} className="text-blue-600 hover:underline">
+            View →
+          </Link>
         </div>
       </div>
     );
@@ -29,21 +37,21 @@ export default async function SellerRFQFeedPage() {
 
   return (
     <div className="p-8 space-y-8">
-      <h1 className="text-2xl font-bold">Seller RFQ Feed</h1>
+      <h1 className="text-2xl font-bold">RFQ Feed</h1>
 
       <section>
-        <h2 className="text-xl font-semibold mb-3">Best Matches (Tier 1)</h2>
-        {tier1.length === 0 ? <p className="text-gray-600">No Tier 1 matches right now.</p> : tier1.map(renderRow)}
+        <h2 className="text-xl font-semibold mb-3">Tier 1 — Best matches</h2>
+        {tier1.length === 0 ? <p className="text-gray-600">No Tier 1 matches currently.</p> : tier1.map(row)}
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-3">Partial Matches (Tier 2)</h2>
-        {tier2.length === 0 ? <p className="text-gray-600">No Tier 2 matches right now.</p> : tier2.map(renderRow)}
+        <h2 className="text-xl font-semibold mb-3">Tier 2 — Good matches</h2>
+        {tier2.length === 0 ? <p className="text-gray-600">No Tier 2 matches currently.</p> : tier2.map(row)}
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-3">Other Opportunities (Tier 3)</h2>
-        {tier3.length === 0 ? <p className="text-gray-600">No Tier 3 matches.</p> : tier3.map(renderRow)}
+        <h2 className="text-xl font-semibold mb-3">Tier 3 — Other opportunities</h2>
+        {tier3.length === 0 ? <p className="text-gray-600">No Tier 3 matches currently.</p> : tier3.map(row)}
       </section>
     </div>
   );
