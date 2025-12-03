@@ -1,5 +1,5 @@
 // store/userStore.ts
-import create from "zustand";
+import { create } from "zustand";
 
 type User = {
   id?: string;
@@ -16,4 +16,3 @@ export const useUserStore = create<State>((set) => ({
   user: undefined,
   setUser: (u) => set({ user: u }),
 }));
-
