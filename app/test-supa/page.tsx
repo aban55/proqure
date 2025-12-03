@@ -1,10 +1,14 @@
 "use client";
 
-import { supabase } from "@/lib/supabase/client";
+import { supabaseBrowser } from "@/lib/supabase/client";
 
 export default function TestSupa() {
   async function test() {
-    const { data, error } = await supabase.from("profiles").select("*").limit(1);
+    const { data, error } = await supabaseBrowser
+      .from("profiles")
+      .select("*")
+      .limit(1);
+
     console.log({ data, error });
   }
 

@@ -2,23 +2,17 @@
 import "./globals.css";
 import React from "react";
 import GlobalLayout from "@/components/layout/GlobalLayout";
-import ToasterProvider from "@/components/ToasterProvider";
 
 export const metadata = {
   title: "Proqure",
-  description: "Procurement MVP",
+  description: "Procurment MVP",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <GlobalLayout>
-          {children}
-        </GlobalLayout>
-
-        {/* Mount the Toaster once at the root */}
-        <ToasterProvider />
+        <GlobalLayout>{children}</GlobalLayout>
       </body>
     </html>
   );

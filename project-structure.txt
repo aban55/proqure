@@ -39,7 +39,7 @@
 ├── components.json
 ├── eslint.config.mjs
 ├── lib
-│   ├── supabaseClient.ts
+│   ├── 
 │   └── utils.ts
 ├── next-env.d.ts
 ├── next.config.ts
