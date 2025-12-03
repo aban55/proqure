@@ -1,13 +1,21 @@
+// app/api/auth/login/route.ts
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
-  const supabase = createSupabaseServerClient();
   const { email, password } = await req.json();
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  // MUST await here
+  const supabase = await createSupabaseServerClient();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-  return NextResponse.json({ success: true, user: data.user });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  return NextResponse.json({ user: data.user });
 }

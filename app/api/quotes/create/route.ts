@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     const { rfq_id, price_per_unit, total_price, lead_time_days, message } = body;
 
-    const { data: rfq } = await supabase.from("rfqs").select("id,buyer_id,status").eq("id", rfq_id).single();
+    const { data: rfq } = await supabase.from("rfqs").select("id,buyer_id,status,is_deleted").eq("id", rfq_id).single();
     if (!rfq) return NextResponse.json({ error: "RFQ not found" }, { status: 404 });
     if (rfq.is_deleted) return NextResponse.json({ error: "RFQ removed" }, { status: 400 });
 
